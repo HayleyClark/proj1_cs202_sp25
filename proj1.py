@@ -38,3 +38,18 @@ slo_region = Region(slo_rect, "San Luis Obispo Area", "other")
 slo_condition = RegionCondition(slo_region, 2020, 280000, 1000000.0)
 
 region_conditions = [denver_condition, santiago_condition, pacific_condition, slo_condition]
+
+#Task 3
+#3.1
+def emissions_per_capita(rc: RegionCondition) -> float:
+  if rc.pop == 0:
+    return 0.0
+  return (rc.ghg_rate / rc.pop)
+
+
+
+
+
+
+
+
