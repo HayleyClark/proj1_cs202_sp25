@@ -1,3 +1,4 @@
+#Task 1
 @dataclass(frozen=True)
 class GlobeRect:
   lo_lat: float
@@ -17,3 +18,23 @@ class RegionCondition:
   year: int        #Year of observation
   pop: int         #Population in that year
   ghg_rate: float  #Greenhouse gas emission for that year
+
+#Task 2
+#Denver, United States
+denver_rect = GlobeRect(39.4, 40.1, -105.3, -104.5)
+denver_region = Region(denver_rect, "Denver", "other")
+denver_condition = RegionCondition(denver_region, 2020, 3000000, 100000000.0)
+#Santiago, Chile
+santiago_rect = GlobeRect(-33.8, -33.2, -70.9, -70.3)
+santiago_region = Region(santiago_rect, "Santiago", "other")
+santiago_condition = RegionCondition(santiago_region, 2020, 6000000, 80000000.0)
+#Pacific Ocean
+pacific_rect = GlobeRect(10.0, 20.0, -160.0, -140.0)
+pacific_region = Region(pacific_rect, "Central Pacific", "ocean")
+pacific_condition = RegionCondition(pacific_region, 2020, 0, 0.0)
+#SLO 
+slo_rect = GlobeRect(35.0, 35.5, -121.2, -120.2)
+slo_region = Region(slo_rect, "San Luis Obispo Area", "other")
+slo_condition = RegionCondition(slo_region, 2020, 280000, 1000000.0)
+
+region_conditions = [denver_condition, santiago_condition, pacific_condition, slo_condition]
