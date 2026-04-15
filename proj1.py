@@ -1,5 +1,5 @@
 @dataclass(frozen=True)
-class GlobalRect:
+class GlobeRect:
   lo_lat: float
   hi_lat: float
   west_long: float
