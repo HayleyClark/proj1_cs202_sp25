@@ -46,6 +46,19 @@ def emissions_per_capita(rc: RegionCondition) -> float:
     return 0.0
   return (rc.ghg_rate / rc.pop)
 
+#Task 3.2
+def area(gr: GlobeRect) -> float:
+  R = 6378.1
+    lo_lat = math.radians(gr.lo_lat)
+    hi_lat = math.radians(gr.hi_lat)
+    west = math.radians(gr.west_long)
+    east = math.radians(gr.east_long)
+
+    diff = east - west
+    if diff < 0:
+        diff += 2 * math.pi
+
+    return (R ** 2) * abs(diff) * abs(math.sin(hi_lat) - math.sin(lo_lat))
 
 
 
