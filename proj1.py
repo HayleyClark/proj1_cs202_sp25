@@ -60,6 +60,16 @@ def area(gr: GlobeRect) -> float:
 
     return (R ** 2) * abs(diff) * abs(math.sin(hi_lat) - math.sin(lo_lat))
 
+#Tasl 3.3
+def emissions_per_square_kilometer(rc: RegionCondition) -> float:
+  a = area(rc.region.rect)
+  if a == 0:
+    return 0.0
+  return (rc.ghg_rate / a)
+
+#Task 3.4
+
+
 
 
 
