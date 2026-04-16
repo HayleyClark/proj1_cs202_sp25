@@ -19,9 +19,26 @@ class TestRegionFunctions(unittest.TestCase):
         rc = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "Test", "other"), 2020, 100, 0.0) 
         self.assertEqual(emissions_per_capita(rc), 0.0)
 
-    #
-    def test_holder(self):
-        pass
+    #area tests
+    def test_area_normal(self):
+        gr = GlobeRect(0, 1, 0, 1)
+        result = area(gr)
+        self.assertTrue(result > 0)
+
+    def test_area_zero_height(self):
+        gr = GlobeRect(5, 5, 10, 20)
+        self.assertEqual(area(gr), 0.0)
+
+    def test_area_zero_weidth(self):
+        gr = GlobeRect(0, 10, 50, 50)
+        self.assertEqual(area(gr), 0.0)
+
+    def test_area_crosses_date_line(self):
+        gr = GlobeRect(10, 20, 170, -170)
+        result = area(gr)
+        self.assertTrue(result > 0)
+
+    #emissions_per_square_kilometer tests
 
 
 if __name__ == '__main__':
