@@ -39,6 +39,17 @@ class TestRegionFunctions(unittest.TestCase):
         self.assertTrue(result > 0)
 
     #emissions_per_square_kilometer tests
+    def test_emissions_per_square_kilometer_normal(self):
+        rc = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "Test", "other"), 2020, 100, 100.0)
+        result = emissions_per_square_kilometer(rc)
+        self.assertTrue(result > 0)
+
+    def test_emissions_per_square_kilometer_zero_area(self):
+        rc = RegionCondition(Region(GlobeRect(5, 5, 10, 20), "Test", "other"), 2020, 100, 100.0)
+        self.assertEqual(emissions_per_square_kilometer(rc), 0.0)
+    
+    #densest tests
+
 
 
 if __name__ == '__main__':
