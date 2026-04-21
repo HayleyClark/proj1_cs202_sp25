@@ -40,6 +40,8 @@ slo_condition = RegionCondition(slo_region, 2020, 280000, 1000000.0)
 region_conditions = [denver_condition, santiago_condition, pacific_condition, slo_condition]
 
 #Task 3
+# Purpose Statement: Take in a RegionCondition and compute the amount of CO2-equivalent emissions per person in the region per year, 
+# returning 0.0 if the population is zero.
 #3.1
 def emissions_per_capita(rc: RegionCondition) -> float:
   if rc.pop == 0:
@@ -47,6 +49,8 @@ def emissions_per_capita(rc: RegionCondition) -> float:
   return (rc.ghg_rate / rc.pop)
 
 #Task 3.2
+# Purpose Statement: Take in a GlobeRect representing a region on Earth and compute the estimated surface area of the region 
+# in square kilometers using a spherical Earth model.
 def area(gr: GlobeRect) -> float:
   R = 6378.1
     lo_lat = math.radians(gr.lo_lat)
@@ -61,6 +65,8 @@ def area(gr: GlobeRect) -> float:
     return (R ** 2) * abs(diff) * abs(math.sin(hi_lat) - math.sin(lo_lat))
 
 #Tasl 3.3
+# Purpose Statement: Take in a RegionCondition and compute the amount of CO2-equivalent emissions per square kilometer of the region,
+#returning 0.0 if the region’s area is zero.
 def emissions_per_square_kilometer(rc: RegionCondition) -> float:
   a = area(rc.region.rect)
   if a == 0:
@@ -68,6 +74,8 @@ def emissions_per_square_kilometer(rc: RegionCondition) -> float:
   return (rc.ghg_rate / a)
 
 #Task 3.4
+# Purpose Statement: Take in a list of RegionCondition values and return the name of the region with the highest population density
+# (population divided by area) using recursion.
 def densest_helper(rc_list: list[RegionCondition], i: int = 0) -> list[RegionCondition]:
   if i == len(rc_list) - 1:
     return rc_list[i]
@@ -95,7 +103,9 @@ def densest_helper(rc_list: list[RegionCondition], i: int = 0) -> list[RegionCon
 def densest(rc_list: list[RegionCondition]) -> str:
     return densest_helper(rc_list).region.name
 
-#project_condition
+#Task 4
+# Purpose Statement: Take in a RegionCondition and a number of years and compute a new RegionCondition representing 
+# the projected state after applying terrain-based population growth and proportional emissions scaling over time.
 def project_condition(rc: RegionCondition, years: int) -> RegionCondition:
     
     if rc.region.terrain == "ocean":
