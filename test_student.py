@@ -63,6 +63,24 @@ class TestRegionFunctions(unittest.TestCase):
         rc2 = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "Second", "other"), 2020, 100, 50.0)
         self.assertEqual(densest([rc1, rc2]), "First")
 
+    #project_condition tests
+    def test_project_condition_growth(self):
+        rc = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "Test", "other"), 2020, 1000, 100.0)
+        result = project_condition(rc, 10)
+        self.assertTrue(result.pop > 1000)
+        self.assertEqual(result.year, 2030)
+
+    def test_project_condition_zero_population(self):
+        rc = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "Test", "other"), 2020, 0, 100.0)
+        result = project_condition(rc, 5)
+        self.assertEqual(result.pop, 0)
+        self.assertEqual(result.ghg_rate, 0.0)
+
+    def test_project_condition_forest_decrease(self):
+        rc = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "ForestRegion", "forest"), 2020, 1000, 100.0)
+        result = project_condition(rc, 10)
+        self.assertTrue(result.pop < 1000)
+
 
 if __name__ == '__main__':
     unittest.main()
