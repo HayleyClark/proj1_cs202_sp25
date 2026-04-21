@@ -49,7 +49,19 @@ class TestRegionFunctions(unittest.TestCase):
         self.assertEqual(emissions_per_square_kilometer(rc), 0.0)
     
     #densest tests
+    def test_densest_normal(self):
+        rc1 = RegionCondition(Region(GlobeRect(0, 10, 0, 10), "LowDensity", "other"), 2020, 100, 50.0)
+        rc2 = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "HighDensity", "other"), 2020, 1000000, 50.0)
+        self.assertEqual(densest([rc1, rc2]), "HighDensity")
 
+    def test_densest_single_item(self):
+        rc = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "OnlyRegion", "other"), 2020, 100, 50.0)
+        self.assertEqual(densest([rc]), "OnlyRegion")
+
+    def test_densest_tie(self):
+        rc1 = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "First", "other"), 2020, 100, 50.0)
+        rc2 = RegionCondition(Region(GlobeRect(0, 1, 0, 1), "Second", "other"), 2020, 100, 50.0)
+        self.assertEqual(densest([rc1, rc2]), "First")
 
 
 if __name__ == '__main__':
