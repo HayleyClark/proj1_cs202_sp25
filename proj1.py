@@ -68,10 +68,35 @@ def emissions_per_square_kilometer(rc: RegionCondition) -> float:
   return (rc.ghg_rate / a)
 
 #Task 3.4
+def densest_helper(rc_list: list[RegionCondition], i: int = 0) -> list[RegionCondition]:
+  if i == len(rc_list) - 1:
+    return rc_list[i]
+  best_temp = densest_helper(rc_list, i + 1)
+  current = rc_list[i]
+
+  current_area = area(current.region.rect)
+  temp_area = area(best_temp.region.rect)
+
+  if current_area == 0:
+    current_density = 0.0
+  else:
+    current_density = current.pop / current_area
+
+  if temp_area == 0:
+    temp_density = 0.0
+  else:
+    temp_density = temp.pop / temp_area
+
+  if current_area >= temp_density:
+    return current
+  else: 
+    return best_temp
+ 
 def densest(rc_list: list[RegionCondition]) -> str:
-  if len(rc_list) == 1:
-    return rc_list[0].region.name
-  first = rc_list[0]
+    return densest_helper(rc_list).region.name
+  
+  
+  
   
 
 
