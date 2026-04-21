@@ -94,6 +94,26 @@ def densest_helper(rc_list: list[RegionCondition], i: int = 0) -> list[RegionCon
  
 def densest(rc_list: list[RegionCondition]) -> str:
     return densest_helper(rc_list).region.name
+
+#project_condition
+def project_condition(rc: RegionCondition, years: int) -> RegionCondition:
+    
+    if rc.region.terrain == "ocean":
+        rate = 0.0001
+    elif rc.region.terrain == "mountains":
+        rate = 0.0005
+    elif rc.region.terrain == "forest":
+        rate = -0.00001
+    else:
+        rate = 0.0003
+    new_pop = rc.pop
+    for _ in range(years):
+        new_pop = new_pop * (1 + rate)
+    if rc.pop == 0:
+        new_ghg = 0.0
+    else:
+        new_ghg = rc.ghg_rate * (new_pop / rc.pop)
+    return RegionCondition(rc.region, rc.year + years, int(new_pop), new_ghg)
   
   
   
